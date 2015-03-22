@@ -1,10 +1,10 @@
 # Site settings
-title: 阿炳的博客 
+title: tangmi的笔记本
 email: bingwen.2048@gmail.com
-description: 阿炳的博客
+description: tangmi的笔记本
 baseurl: ""
-url: "http://blog.sbw.me"
-github_username: bingwen 
+url: "http://www.tangmi.me"
+github_username: tangmi360
 
 # Build settings
 markdown: kramdown
