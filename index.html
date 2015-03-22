@@ -14,7 +14,7 @@ disable_ads: True
         <div class="post-content">
           {{ post.content | split:'<!--break-->' | first }}
         </div>
-        <div class="post-meta">{{ post.date | date: "%Y-%M-%d" }}{% if post.author %} by {{ post.author }}{% endif %}</div>
+        <div class="post-meta">{{ post.date | date: "%Y-%m-%d" }}{% if post.author %} by {{ post.author }}{% endif %}</div>
       </div>
     {% endfor %}
   </div>
