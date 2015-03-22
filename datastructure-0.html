@@ -78,9 +78,9 @@ $\log 1 = 0$，$\log 2 = 1$，$\log 1024 = 10$，$\log 1048576 = 20$
 ### **课后习题**
 
 1. 编写一个程序解决选择问题。令k = N/2。画出表格显示你的程序对于 N 为不同值的运行时间。
-    ```C
+~~~~
     /*
-     * =====================================================================================
+     * ===================================================================
      *
      *    Filename:  Select.c
      *    Description:  选择第K大的数
@@ -91,7 +91,7 @@ $\log 1 = 0$，$\log 2 = 1$，$\log 1024 = 10$，$\log 1048576 = 20$
      *    Compiler:  gcc
      *    Author:  tangmi
      *
-     * =====================================================================================
+     * ===================================================================
      */
      #include <stdio.h>
      #include <string.h>
@@ -152,7 +152,8 @@ $\log 1 = 0$，$\log 2 = 1$，$\log 1024 = 10$，$\log 1048576 = 20$
         }
         return 0;
     }
-    ```
+
+~~~~
 
 2. 编写一个程序求解字谜游戏问题
 
@@ -279,83 +280,86 @@ $2^N + 2^N = 2^{N+1}$</p>
 <h3 id=""><strong>课后习题</strong></h3>
 
 <ol>
-<li><p>编写一个程序解决选择问题。令k = N/2。画出表格显示你的程序对于 N 为不同值的运行时间。
-```C
-/*</p>
+<li>编写一个程序解决选择问题。令k = N/2。画出表格显示你的程序对于 N 为不同值的运行时间。</li>
+</ol>
 
-<ul><li>=====================================================================================
-*</li>
-<li>Filename:  Select.c</li>
-<li>Description:  选择第K大的数
-*</li>
-<li>Version:  1.0</li>
-<li>Created:  2014年08月30日 21时22分29秒</li>
-<li>Revision:  none</li>
-<li>Compiler:  gcc</li>
-<li>Author:  tangmi
-*</li>
-<li>=====================================================================================
-*/
-#include <stdio.h>
-#include <string.h>
-#include <time.h></time.h></string.h></stdio.h></li></ul>
+<pre><code>    /*
+     * ===================================================================
+     *
+     *    Filename:  Select.c
+     *    Description:  选择第K大的数
+     *
+     *    Version:  1.0
+     *    Created:  2014年08月30日 21时22分29秒
+     *    Revision:  none
+     *    Compiler:  gcc
+     *    Author:  tangmi
+     *
+     * ===================================================================
+     */
+     #include &lt;stdio.h&gt;
+     #include &lt;string.h&gt;
+     #include &lt;time.h&gt;
 
-<p>int partition(int *arr, int begin, int end)
-{
-    int x = arr[end];
-    int i = begin - 1;
-    int idx;
-    for (idx = begin; idx &lt; end; ++idx)
+    int partition(int *arr, int begin, int end)
     {
-        if (arr[idx] &gt; x)
+        int x = arr[end];
+        int i = begin - 1;
+        int idx;
+        for (idx = begin; idx &lt; end; ++idx)
         {
-            ++i;
-            swap(arr, i, idx);
+            if (arr[idx] &gt; x)
+            {
+                ++i;
+                swap(arr, i, idx);
+            }
         }
+        swap(arr, i + 1, end);
+        return i + 1;
     }
-    swap(arr, i + 1, end);
-    return i + 1;
-}</p>
 
-<p>inline swap(int *arr, int lhs, int rhs)
-{
-    int temp = arr[lhs];
-    arr[lhs] = arr[rhs];
-    arr[rhs] = temp;
-}</p>
-
-<p>int selectK(int *arr, int begin, int end, int k)
-{
-    if (begin == end)
-      return arr[begin];
-    int q = partition(arr, begin, end);
-    int m = q - begin + 1;
-    if (m == k)
-        return arr[q];
-    else if (m &lt; k)
-        return selectK(arr, q + 1, end, k - m);
-    else
-        return selectK(arr, begin, q - 1, k);
-}</p>
-
-<p>int main(void)
-{
-    int arr[] = {1, 2, 4, 8, 3, 5};
-    struct  timeval  start;
-    struct  timeval  end;
-    unsigned long timer;
-    int i, kV;
-    for(i = 0; i &lt; 6; ++i)
+    inline swap(int *arr, int lhs, int rhs)
     {
-        gettimeofday(&amp;start, NULL);
-        kV = selectK(arr, 0, i, (i + 1) / 2);
-        gettimeofday(&amp;end, NULL);
-        timer = 1000000 * (end.tv<em>sec - start.tv</em>sec) + end.tv<em>usec - start.tv</em>usec;
-        printf("kV=%d, spend time=%ld us\n", kV, timer);
+        int temp = arr[lhs];
+        arr[lhs] = arr[rhs];
+        arr[rhs] = temp;
     }
-    return 0;
-}
-```</p></li>
+
+    int selectK(int *arr, int begin, int end, int k)
+    {
+        if (begin == end)
+          return arr[begin];
+        int q = partition(arr, begin, end);
+        int m = q - begin + 1;
+        if (m == k)
+            return arr[q];
+        else if (m &lt; k)
+            return selectK(arr, q + 1, end, k - m);
+        else
+            return selectK(arr, begin, q - 1, k);
+    }
+
+    int main(void)
+    {
+        int arr[] = {1, 2, 4, 8, 3, 5};
+        struct  timeval  start;
+        struct  timeval  end;
+        unsigned long timer;
+        int i, kV;
+        for(i = 0; i &lt; 6; ++i)
+        {
+            gettimeofday(&amp;start, NULL);
+            kV = selectK(arr, 0, i, (i + 1) / 2);
+            gettimeofday(&amp;end, NULL);
+            timer = 1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec;
+            printf("kV=%d, spend time=%ld us\n", kV, timer);
+        }
+        return 0;
+    }
+
+</code></pre>
+
+<ol>
 <li><p>编写一个程序求解字谜游戏问题</p></li>
 <li><p>只使用处理I/O的printDigit函数，编写一个过程以输出任意实数（可以是负的）。</p></li>
 <li><p>C提供形如 <code>#include filename</code> 的语句，它读入文件filename并将其插入到include语句处。include语句可以嵌套；换句话说，文件filename本身还可以包含include语句，但是显然一个文件在任何链接中都不能包含它自己。编写一个程序，使它读入被include语句修饰的一个文件并且输出这个文件。</p></li>
