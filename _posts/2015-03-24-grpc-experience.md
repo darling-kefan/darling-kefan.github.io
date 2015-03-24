@@ -9,21 +9,18 @@ author: tangmi
 
 大名鼎鼎的grpc出来不久，赶紧下来体验一把，该文主要记录安装过程以及简单的hello程序。
 ### grpc安装
-- ######下载源码
+<!--break-->
 
-	```
-	$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
-	```
+## 1. 下载源码
 
-- ######更新第三方源码
+    $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
 
-	```
+## 2. 更新第三方源码
+
 	$ git submodule update --init
-	```
 
-	<font color="red">注意：执行这一步更新命令前，需要修改.gitmodules文件，我已经通过goog code “一键export to github“ 功能 把gflags项目源码导入到了github(google code无法通过git访问)，修改后的文件如下：</font>
+<font color="red">注意：执行这一步更新命令前，需要修改.gitmodules文件，我已经通过goog code “一键export to github“ 功能 把gflags项目源码导入到了github(google code无法通过git访问)，修改后的文件如下：</font>
 
-	```
 	[submodule "third_party/zlib"]
     	    path = third_party/zlib
         	url = https://github.com/madler/zlib
@@ -38,29 +35,25 @@ author: tangmi
 	[submodule "third_party/gflags"]
     	    path = third_party/gflags
     	    url = https://github.com/tangmi360/gflags.git
-	```
 
-- ######编译并安装
+## 3. 编译并安装
 
-	```
 	$ make
 	$ sudo make install prefix=/usr/local/
-	```
 
-	到此，grpc已经成功安装在系统中。
+到此，grpc已经成功安装在系统中。
 
 ### protobuf 3.0.0安装
-- ######进入third_party目录
 
-	```
+## 1. 进入third_party目录
+
 	$ cd third_party/protobuf
-	```
 
-- ######通过autogen.sh脚本生成configure
-	protobuf从github拉下的源码默认是没有configure文件，需要通过执行autogen.sh来生成；  
-	不过需要修改下脚本，修改后脚本片断如下（22-25行被注释掉了，26行是新加）
+## 2. 通过autogen.sh脚本生成configure
 
-	```
+protobuf从github拉下的源码默认是没有configure文件，需要通过执行autogen.sh来生成  
+不过需要修改下脚本，修改后脚本片断如下（22-25行被注释掉了，26行是新加）
+
 	20 if test ! -e gtest; then
 	21   echo "Google Test not present.  Fetching gtest-1.7.0 from the web..."
 	22   #curl -O https://googletest.googlecode.com/files/gtest-1.7.0.zip
@@ -69,49 +62,40 @@ author: tangmi
 	25   #mv gtest-1.7.0 gtest
 	26   git clone https://github.com/tangmi360/googletest.git gtest
 	27 fi
-	```
 
-- ######编译并安装
+## 3. 编译并安装
 
-	```
 	$ ./autogen.sh
 	$ ./configure --prefix=/usr/local
 	$ make
 	$ make check
 	$ sudo make install
-	```
 
-- ######添加动态库到ldconf配置
+## 4. 添加动态库到ldconf配置
 
-	```
 	$ sudo vim /etc/ld.so.conf.d/grpc.conf
 	$ 添加一行 "/usr/local/lib"
 	$ sudo ldconfig
-	```
 
 ### Hello C++ gRPC!
-- ######下载 grpc-common
-	该项目是grpc的使用示例程序以及帮助文档
 
-	```
+## 1. 下载 grpc-common
+
+该项目是grpc的使用示例程序以及帮助文档
+
 	$ git clone https://github.com/grpc/grpc-common.git
-	```
 
-- ######生成rpc接口代码
+## 2. 生成rpc接口代码
 
-	```
 	$ cd grpc-common/cpp/helloworld/
 	$ make helloworld.pb.cc
-	```
-	其实生成接口代码执行的是这条命令:
 
-	```
+其实生成接口代码执行的是这条命令:
+
 	$ protoc -I ../../protos --cpp_out=. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ../../protos/helloworld.proto
-	```
 
-- ######代码示例
+## 3. 代码示例
 
-	```
 	########greeter_server.cc#########
 	#include <iostream>
 	#include <memory>
@@ -161,9 +145,7 @@ author: tangmi
   		grpc_shutdown();
   		return 0;
 	}
-	```
 
-	```
 	########greeter_client.cc#########
 	#include <iostream>
 	#include <memory>
@@ -225,23 +207,19 @@ author: tangmi
 
   		grpc_shutdown();
 	}
-	```
 
-- ######编译hello程序
+## 4. 编译hello程序
 
-	```
 	$ make
-	```
 
-- ######运行
+## 5. 运行
 
-	```
 	$ ./greeter_server
 	$ ./greeter_client
-	```
 
-	输出结果:
-	`Hello world`
+输出结果:
+
+    Hello world
 
 ### 最后
   本文记录了一下安装编译过程，并简单体验了一下c++版本的hello程序，接下来陆续会对grpc的源码进行分析。
