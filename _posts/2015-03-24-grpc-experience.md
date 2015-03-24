@@ -12,15 +12,14 @@ author: tangmi
 
 1. 下载源码
 
-```
-$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
-```
-
+	```
+	$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
+	```
 2. 更新第三方源码
 
-```
-$ git submodule update --init
-```
+	```
+	$ git submodule update --init
+	```
 
 <font color="red">注意：执行这一步更新命令前，需要修改.gitmodules文件，我已经通过goog code “一键export to github“ 功能 把gflags项目源码导入到了github(原因你懂)，修改后的文件如下：</font>
 
