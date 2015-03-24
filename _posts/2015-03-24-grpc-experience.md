@@ -21,7 +21,7 @@ $ git submodule update --init
 
 <font color="red">注意：执行这一步更新命令前，需要修改.gitmodules文件，我已经通过goog code “一键export to github“ 功能 把gflags项目源码导入到了github(原因你懂)，修改后的文件如下：</font>
 
-	```
+
 	[submodule "third_party/zlib"]
         	path = third_party/zlib
 		url = https://github.com/madler/zlib
@@ -36,7 +36,7 @@ $ git submodule update --init
 	[submodule "third_party/gflags"]
 	        path = third_party/gflags
 	        url = https://github.com/tangmi360/gflags.git
-	```
+
 
 - ######编译并安装
 
