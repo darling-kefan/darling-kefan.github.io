@@ -1,14 +1,13 @@
-<link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css">
-<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
-<script>
-hljs.initHighlightingOnLoad();
-</script>
-
-grpc体验
-===
+---
+layout: post
+title: "gRPC体验"
+date: 2015-03-24 16:12:11
+category: "服务器"
+tags: gRPC
+author: tangmi
+---
 
 大名鼎鼎的grpc出来不久，赶紧下来体验一把，该文主要记录安装过程以及简单的hello程序。
-
 ---
 
 ### grpc安装
