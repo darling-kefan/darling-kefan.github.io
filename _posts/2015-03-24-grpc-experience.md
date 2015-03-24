@@ -10,11 +10,11 @@ author: tangmi
 大名鼎鼎的grpc出来不久，赶紧下来体验一把，该文主要记录安装过程以及简单的hello程序。
 ### grpc安装
 
-1. 下载源码
+1. 下载源码  
 ```
 $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
 ```
-2. 更新第三方源码
+2. 更新第三方源码  
 ```
 $ git submodule update --init
 ```
