@@ -11,9 +11,9 @@ author: tangmi
 ### grpc安装
 
 1. 下载源码
-	```
-	$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
-	```
+```
+$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
+```
 2. 更新第三方源码
 	```
 	$ git submodule update --init
