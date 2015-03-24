@@ -21,7 +21,7 @@ author: tangmi
 	$ git submodule update --init
 	```
 
-	<font color="red">注意：执行这一步更新命令前，需要修改.gitmodules文件，我已经通过goog code “一键export to github“ 功能 把gflags项目源码导入到了github(原因你懂)，修改后的文件如下：</font>
+	<font color="red">注意：执行这一步更新命令前，需要修改.gitmodules文件，我已经通过goog code “一键export to github“ 功能 把gflags项目源码导入到了github(google code无法通过git访问)，修改后的文件如下：</font>
 
 	```
 	[submodule "third_party/zlib"]
@@ -58,7 +58,7 @@ author: tangmi
 
 - ######通过autogen.sh脚本生成configure
 	protobuf从github拉下的源码默认是没有configure文件，需要通过执行autogen.sh来生成；  
-	不过需要修改下脚本，修改后脚本片断如下（22-25行被注释掉了，26行是新加，你懂的）
+	不过需要修改下脚本，修改后脚本片断如下（22-25行被注释掉了，26行是新加）
 
 	```
 	20 if test ! -e gtest; then
