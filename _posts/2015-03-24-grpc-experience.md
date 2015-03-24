@@ -145,6 +145,7 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
     }
 
 
+
     ########greeter_client.cc#########
 	#include <iostream>
 	#include <memory>
@@ -171,7 +172,7 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
   	    GreeterClient(std::shared_ptr<ChannelInterface> channel)
       			: stub_(Greeter::NewStub(channel)) {}
 
-  		std::string SayHello(const std::string& user) {
+        std::string SayHello(const std::string& user) {
             HelloRequest request;
             request.set_name(user);
             HelloReply reply;
@@ -183,9 +184,7 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
                 return "Rpc failed";
             }
         }
-
   	    void Shutdown() { stub_.reset(); }
-
       private:
   	    std::unique_ptr<Greeter::Stub> stub_;
     };
