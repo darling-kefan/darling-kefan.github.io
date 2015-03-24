@@ -14,13 +14,16 @@ grpc体验
 ### grpc安装
 - ######下载源码
 
-```
-$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
-```
+	```
+	$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
+	```
+
 - ######更新第三方源码
+
 	```
 	$ git submodule update --init
 	```
+
 	<font color="red">注意：执行这一步更新命令前，需要修改.gitmodules文件，我已经通过goog code “一键export to github“ 功能 把gflags项目源码导入到了github(原因你懂)，修改后的文件如下：</font>
 
 	```
@@ -41,21 +44,25 @@ $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
 	```
 
 - ######编译并安装
+
 	```
 	$ make
 	$ sudo make install prefix=/usr/local/
 	```
+
 	到此，grpc已经成功安装在系统中。
 
 ### protobuf 3.0.0安装
 - ######进入third_party目录
+
 	```
 	$ cd third_party/protobuf
 	```
+
 - ######通过autogen.sh脚本生成configure
 	protobuf从github拉下的源码默认是没有configure文件，需要通过执行autogen.sh来生成；  
 	不过需要修改下脚本，修改后脚本片断如下（22-25行被注释掉了，26行是新加，你懂的）
-	
+
 	```
 	20 if test ! -e gtest; then
 	21   echo "Google Test not present.  Fetching gtest-1.7.0 from the web..."
@@ -66,7 +73,9 @@ $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
 	26   git clone https://github.com/tangmi360/googletest.git gtest
 	27 fi
 	```
+
 - ######编译并安装
+
 	```
 	$ ./autogen.sh
 	$ ./configure --prefix=/usr/local
@@ -74,13 +83,15 @@ $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
 	$ make check
 	$ sudo make install
 	```
+
 - ######添加动态库到ldconf配置
+
 	```
 	$ sudo vim /etc/ld.so.conf.d/grpc.conf
 	$ 添加一行 "/usr/local/lib"
 	$ sudo ldconfig
 	```
-	
+
 ### Hello C++ gRPC!
 - ######下载 grpc-common
 	该项目是grpc的使用示例程序以及帮助文档
@@ -88,8 +99,8 @@ $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
 	```
 	$ git clone https://github.com/grpc/grpc-common.git
 	```
-- ######生成rpc接口代码
 
+- ######生成rpc接口代码
 
 	```
 	$ cd grpc-common/cpp/helloworld/
@@ -100,7 +111,9 @@ $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
 	```
 	$ protoc -I ../../protos --cpp_out=. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ../../protos/helloworld.proto
 	```
+
 - ######代码示例
+
 	```
 	########greeter_server.cc#########
 	#include <iostream>
@@ -152,7 +165,7 @@ $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
   		return 0;
 	}
 	```
-	
+
 	```
 	########greeter_client.cc#########
 	#include <iostream>
@@ -216,16 +229,20 @@ $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
   		grpc_shutdown();
 	}
 	```
+
 - ######编译hello程序
+
 	```
 	$ make
 	```
+
 - ######运行
 
 	```
 	$ ./greeter_server
 	$ ./greeter_client
 	```
+
 	输出结果:
 	`Hello world`
 
