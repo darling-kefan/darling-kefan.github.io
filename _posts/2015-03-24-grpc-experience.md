@@ -144,7 +144,6 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
         return 0;
     }
 
-    
     ########greeter_client.cc#########
 	#include <iostream>
 	#include <memory>
