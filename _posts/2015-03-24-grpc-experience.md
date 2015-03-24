@@ -98,6 +98,7 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 ### 3. 代码示例
 
 `greeter_server.cc`
+
 	#include <iostream>
 	#include <memory>
 	#include <string>
@@ -144,7 +145,9 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
         return 0;
     }
 
+
 `greeter_client.cc`
+
 	#include <iostream>
 	#include <memory>
 	#include <string>
