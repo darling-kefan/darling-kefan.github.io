@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css">
+<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
 grpc体验
 ===
 
@@ -7,9 +13,10 @@ grpc体验
 
 ### grpc安装
 - ######下载源码
-	```
-	$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
-	```
+
+```
+$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
+```
 - ######更新第三方源码
 	```
 	$ git submodule update --init
