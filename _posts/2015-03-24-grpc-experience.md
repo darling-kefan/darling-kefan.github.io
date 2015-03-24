@@ -118,34 +118,34 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 	using helloworld::Greeter;
 
 	class GreeterServiceImpl final : public Greeter::Service {
-  		Status SayHello(ServerContext* context, const HelloRequest* request,
-                  HelloReply* reply) override {
-    		std::string prefix("Hello ");
-    		reply->set_message(prefix + request->name());
-    		return Status::OK;
-  		}
+        Status SayHello(ServerContext* context, const HelloRequest* request, HelloReply* reply) override {
+            std::string prefix("Hello ");
+            reply->set_message(prefix + request->name());
+            return Status::OK;
+  	    }
 	};
 
 	void RunServer() {
-  		std::string server_address("0.0.0.0:50051");
-  		GreeterServiceImpl service;
-  		ServerBuilder builder;
-	    builder.AddListeningPort(server_address,
-	    grpc::InsecureServerCredentials());
-  		builder.RegisterService(&service);
-  		std::unique_ptr<Server> server(builder.BuildAndStart());
-  		std::cout << "Server listening on " << server_address << std::endl;
-  		server->Wait();
-	}
+        std::string server_address("0.0.0.0:50051");
+        GreeterServiceImpl service;
+        ServerBuilder builder;
+        builder.AddListeningPort(server_address,
+        grpc::InsecureServerCredentials());
+        builder.RegisterService(&service);
+        std::unique_ptr<Server> server(builder.BuildAndStart());
+        std::cout << "Server listening on " << server_address << std::endl;
+        server->Wait();
+    }
 
 	int main(int argc, char** argv) {
-  		grpc_init();
-  		RunServer();
-  		grpc_shutdown();
-  		return 0;
-	}
+        grpc_init();
+        RunServer();
+        grpc_shutdown();
+        return 0;
+    }
 
-	########greeter_client.cc#########
+
+    ########greeter_client.cc#########
 	#include <iostream>
 	#include <memory>
 	#include <string>
@@ -167,44 +167,41 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 	using helloworld::Greeter;
 
 	class GreeterClient {
- 	  public:
+      public:
   	    GreeterClient(std::shared_ptr<ChannelInterface> channel)
       			: stub_(Greeter::NewStub(channel)) {}
 
   		std::string SayHello(const std::string& user) {
-    		HelloRequest request;
-    		request.set_name(user);
-    		HelloReply reply;
-    		ClientContext context;
+            HelloRequest request;
+            request.set_name(user);
+            HelloReply reply;
+            ClientContext context;
+            Status status = stub_->SayHello(&context, request, &reply);
+            if (status.IsOk()) {
+                return reply.message();
+            } else {
+                return "Rpc failed";
+            }
+        }
 
-    		Status status = stub_->SayHello(&context, request, &reply);
-    		if (status.IsOk()) {
-      			return reply.message();
-    		} else {
-      			return "Rpc failed";
-    		}
-  		}
+  	    void Shutdown() { stub_.reset(); }
 
-  		void Shutdown() { stub_.reset(); }
-
- 	  private:
+      private:
   	    std::unique_ptr<Greeter::Stub> stub_;
-	};
+    };
 
-	int main(int argc, char** argv) {
-  		grpc_init();
+    int main(int argc, char** argv) {
+        grpc_init();
+        GreeterClient greeter(
+        grpc::CreateChannel("localhost:50051", grpc::InsecureCredentials(),
+            ChannelArguments()));
+        std::string user("world");
+        std::string reply = greeter.SayHello(user);
+        std::cout << "Greeter received: " << reply << std::endl;
+        greeter.Shutdown();
+        grpc_shutdown();
+    }
 
-  		GreeterClient greeter(
-      	grpc::CreateChannel("localhost:50051", grpc::InsecureCredentials(),
-                          ChannelArguments()));
-  		std::string user("world");
-  		std::string reply = greeter.SayHello(user);
-  		std::cout << "Greeter received: " << reply << std::endl;
-
-  		greeter.Shutdown();
-
-  		grpc_shutdown();
-	}
 
 ### 4. 编译hello程序
 
