@@ -117,7 +117,7 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 	using helloworld::HelloReply;
 	using helloworld::Greeter;
 
-	class GreeterServiceImpl final : public Greeter::Service {
+    class GreeterServiceImpl final : public Greeter::Service {
         Status SayHello(ServerContext* context, const HelloRequest* request, HelloReply* reply) override {
             std::string prefix("Hello ");
             reply->set_message(prefix + request->name());
