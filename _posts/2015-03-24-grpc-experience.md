@@ -122,8 +122,8 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
             std::string prefix("Hello ");
             reply->set_message(prefix + request->name());
             return Status::OK;
-  	    }
-	};
+        }
+    };
 
 	void RunServer() {
         std::string server_address("0.0.0.0:50051");
