@@ -9,6 +9,7 @@ github_username: tangmi360
 # Build settings
 markdown: kramdown
 permalink: /blog/:title
+pygments: true
 
 ##
 paginate: 10
