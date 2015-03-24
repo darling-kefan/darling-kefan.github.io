@@ -8,14 +8,15 @@ author: tangmi
 ---
 
 大名鼎鼎的grpc出来不久，赶紧下来体验一把，该文主要记录安装过程以及简单的hello程序。
-### grpc安装
 <!--break-->
 
-## 1. 下载源码
+## grpc安装
+
+### 1. 下载源码
 
     $ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
 
-## 2. 更新第三方源码
+### 2. 更新第三方源码
 
 	$ git submodule update --init
 
@@ -36,20 +37,20 @@ author: tangmi
     	    path = third_party/gflags
     	    url = https://github.com/tangmi360/gflags.git
 
-## 3. 编译并安装
+### 3. 编译并安装
 
 	$ make
 	$ sudo make install prefix=/usr/local/
 
 到此，grpc已经成功安装在系统中。
 
-### protobuf 3.0.0安装
+## protobuf 3.0.0安装
 
-## 1. 进入third_party目录
+### 1. 进入third_party目录
 
 	$ cd third_party/protobuf
 
-## 2. 通过autogen.sh脚本生成configure
+### 2. 通过autogen.sh脚本生成configure
 
 protobuf从github拉下的源码默认是没有configure文件，需要通过执行autogen.sh来生成  
 不过需要修改下脚本，修改后脚本片断如下（22-25行被注释掉了，26行是新加）
@@ -63,7 +64,7 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 	26   git clone https://github.com/tangmi360/googletest.git gtest
 	27 fi
 
-## 3. 编译并安装
+### 3. 编译并安装
 
 	$ ./autogen.sh
 	$ ./configure --prefix=/usr/local
@@ -71,21 +72,21 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 	$ make check
 	$ sudo make install
 
-## 4. 添加动态库到ldconf配置
+### 4. 添加动态库到ldconf配置
 
 	$ sudo vim /etc/ld.so.conf.d/grpc.conf
 	$ 添加一行 "/usr/local/lib"
 	$ sudo ldconfig
 
-### Hello C++ gRPC!
+## Hello C++ gRPC!
 
-## 1. 下载 grpc-common
+### 1. 下载 grpc-common
 
 该项目是grpc的使用示例程序以及帮助文档
 
 	$ git clone https://github.com/grpc/grpc-common.git
 
-## 2. 生成rpc接口代码
+### 2. 生成rpc接口代码
 
 	$ cd grpc-common/cpp/helloworld/
 	$ make helloworld.pb.cc
@@ -94,7 +95,7 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 
 	$ protoc -I ../../protos --cpp_out=. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ../../protos/helloworld.proto
 
-## 3. 代码示例
+### 3. 代码示例
 
 	########greeter_server.cc#########
 	#include <iostream>
@@ -128,11 +129,9 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 	void RunServer() {
   		std::string server_address("0.0.0.0:50051");
   		GreeterServiceImpl service;
-  	
   		ServerBuilder builder;
 	    builder.AddListeningPort(server_address,
 	    grpc::InsecureServerCredentials());
-
   		builder.RegisterService(&service);
   		std::unique_ptr<Server> server(builder.BuildAndStart());
   		std::cout << "Server listening on " << server_address << std::endl;
@@ -150,7 +149,6 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 	#include <iostream>
 	#include <memory>
 	#include <string>
-
 	#include <grpc/grpc.h>
 	#include <grpc++/channel_arguments.h>
 	#include <grpc++/channel_interface.h>
@@ -208,11 +206,11 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
   		grpc_shutdown();
 	}
 
-## 4. 编译hello程序
+### 4. 编译hello程序
 
 	$ make
 
-## 5. 运行
+### 5. 运行
 
 	$ ./greeter_server
 	$ ./greeter_client
@@ -221,5 +219,5 @@ protobuf从github拉下的源码默认是没有configure文件，需要通过执
 
     Hello world
 
-### 最后
+## 最后
   本文记录了一下安装编译过程，并简单体验了一下c++版本的hello程序，接下来陆续会对grpc的源码进行分析。
