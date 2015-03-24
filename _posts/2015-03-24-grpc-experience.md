@@ -7,12 +7,6 @@ tags: gRPC
 author: tangmi
 ---
 
-<link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css">
-<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
-<script>
-hljs.initHighlightingOnLoad();
-</script>
-
 大名鼎鼎的grpc出来不久，赶紧下来体验一把，该文主要记录安装过程以及简单的hello程序。
 ### grpc安装
 - ######下载源码
