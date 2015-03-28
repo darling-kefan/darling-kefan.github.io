@@ -1,0 +1,11 @@
+Host *.code.csdn.net
+    IdentityFile ~/.ssh/id_rsa.game
+        User tttangmi
+
+Host github.com
+    Hostname ssh.github.com
+        Port 443
+
+[remote "all"]
+    url = git@github.com:tangmi360/tangmi360.github.io.git
+    url = git@gitcafe.com:tangmi/tangmi.git
