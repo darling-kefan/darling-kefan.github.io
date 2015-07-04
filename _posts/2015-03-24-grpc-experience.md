@@ -3,7 +3,7 @@ layout: post
 title: "gRPC体验"
 date: 2015-03-24 16:12:11
 category: "服务器"
-tags: gRPC
+tags: gRPC 服务器
 author: tangmi
 ---
 ![Alt text](http://7xi7ny.com1.z0.glb.clouddn.com/grpc.png "gRPC")
