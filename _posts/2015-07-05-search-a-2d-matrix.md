@@ -3,7 +3,7 @@ layout: post
 title: "搜索二维矩阵--LintCode"
 date: 2015-07-05 00:01:18
 category: "LintCode"
-tags: binary-search Matrix
+tags: 二分查找 矩阵
 author: tangmi
 ---
 写出一个高效的算法来搜索 m × n矩阵中的值。
@@ -21,7 +21,7 @@ author: tangmi
     ]
     给出 target = 3，返回 true
 
-#### 算法描述
+#### 算法思路
 
     1. 首先对所有行末元素通过二分查找找到小于等于target的行下标；
     2. 再对该行所有元素通过二分查找，如果找到等于target的元素则返回true，否则返回false。
