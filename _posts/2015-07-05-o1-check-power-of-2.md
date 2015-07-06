@@ -24,19 +24,20 @@ author: tangmi
     class Solution
     {
     public:
-        /**
-        * @param num: an integer
-        * @return: an integer, the number of ones in num
+        /*
+        * @param n: An integer
+        * @return: True or false
         */
-        int countOnes(int num)
+        bool checkPowerOf2(int n)
         {
-            int idx = 0;
-            while(num > 0)
+            if(n > 0 && (n & n-1) == 0)
             {
-                idx += num & 1;
-                num = num >> 1;
+                return true;
             }
-            return idx;
+            else
+            {
+                return false;
+            }
         }
     };
 
