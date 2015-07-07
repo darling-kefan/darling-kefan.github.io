@@ -15,7 +15,7 @@ author: tangmi
 #### 算法思路
 
     定义两个指针变量p和q，都指向head；
-    在循环中，p走两步，q走一步，如果存在环，则总会让这两个指针相遇，则结束循环；
+    在循环中，p走两步，q走一步，如果存在环，则总会让这两个指针相遇，则结束循环并返回true；
     如果p或p->next最终指向NULL，说明没有环（没有相遇）
     时间复杂度：
     如果不存在环：则为O(n/2)
@@ -52,18 +52,10 @@ author: tangmi
                 q = q->next;
                 if(p == q)
                 {
-                    break;
+                    return true;
                 }
             }
-
-            if(p == NULL || p-> next == NULL)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return false;
         }
     };
 
