@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>gRPC体验</title>
+    <meta name="description" content="tangmi的笔记本">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://www.tangmi.me/blog/grpc-experience">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+    <link rel="stylesheet" href="http://cdn.staticfile.org/highlight.js/8.3/styles/github.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var sharebutton_is_horizontal = false; var sharebutton_url = document.location.href;
+        document.write('<script src="//cdn.sharebutton.org/share.js"></scr' + 'ipt>');
+    </script>
+</head>
+
+
+  <body>
+    <div class="site-page">
+
+      <header class="site-header">
+
+
+  <a class="site-title" href="/">tangmi的笔记本</a>
+
+  <nav class="site-nav">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+  </nav>
+
+
+</header>
+
+
+      <div class="post">
+  <div class="site-content">
+    <div class="site-main">
+      
+      <header class="post-header">
+        <h1 class="post-title">gRPC体验</h1>
+      </header>
+      
+
+      <article class="post-content">
+        <p><img src="http://7xi7ny.com1.z0.glb.clouddn.com/grpc.png" alt="Alt text" title="gRPC" /></p>
+
+<p>大名鼎鼎的grpc出来不久，赶紧下来体验一把，该文主要记录安装过程以及简单的hello程序。
+<!--break--></p>
+
+<h2 id="grpc">grpc安装</h2>
+
+<h3 id="section">1. 下载源码</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git clone https://github.com/grpc/grpc.git grpc; cd grpc;
+</code></pre>
+</div>
+
+<h3 id="section-1">2. 更新第三方源码</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git submodule update --init
+</code></pre>
+</div>
+
+<font color="red">注意：执行这一步更新命令前，需要修改.gitmodules文件，我已经通过goog code “一键export to github“ 功能 把gflags项目源码导入到了github(google code无法通过git访问)，修改后的文件如下：</font>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[submodule "third_party/zlib"]
+	    path = third_party/zlib
+    	url = https://github.com/madler/zlib
+[submodule "third_party/openssl"]
+	    path = third_party/openssl
+        url = https://github.com/openssl/openssl.git
+	    branch = OpenSSL_1_0_2-stable
+[submodule "third_party/protobuf"]
+	    path = third_party/protobuf
+	    url = https://github.com/google/protobuf.git
+	    branch = v3.0.0-alpha-2
+[submodule "third_party/gflags"]
+	    path = third_party/gflags
+	    url = https://github.com/tangmi360/gflags.git
+</code></pre>
+</div>
+
+<h3 id="section-2">3. 编译并安装</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ make
+$ sudo make install prefix=/usr/local/
+</code></pre>
+</div>
+
+<p>到此，grpc已经成功安装在系统中。</p>
+
+<h2 id="protobuf-300">protobuf 3.0.0安装</h2>
+
+<h3 id="thirdparty">1. 进入third_party目录</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd third_party/protobuf
+</code></pre>
+</div>
+
+<h3 id="autogenshconfigure">2. 通过autogen.sh脚本生成configure</h3>
+
+<p>protobuf从github拉下的源码默认是没有configure文件，需要通过执行autogen.sh来生成<br />
+不过需要修改下脚本，修改后脚本片断如下（22-25行被注释掉了，26行是新加）</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>20 if test ! -e gtest; then
+21   echo "Google Test not present.  Fetching gtest-1.7.0 from the web..."
+22   #curl -O https://googletest.googlecode.com/files/gtest-1.7.0.zip
+23   #unzip -q gtest-1.7.0.zip
+24   #rm gtest-1.7.0.zip
+25   #mv gtest-1.7.0 gtest
+26   git clone https://github.com/tangmi360/googletest.git gtest
+27 fi
+</code></pre>
+</div>
+
+<h3 id="section-3">3. 编译并安装</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ ./autogen.sh
+$ ./configure --prefix=/usr/local
+$ make
+$ make check
+$ sudo make install
+</code></pre>
+</div>
+
+<h3 id="ldconf">4. 添加动态库到ldconf配置</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo vim /etc/ld.so.conf.d/grpc.conf
+$ 添加一行 "/usr/local/lib"
+$ sudo ldconfig
+</code></pre>
+</div>
+
+<h2 id="hello-c-grpc">Hello C++ gRPC!</h2>
+
+<h3 id="grpc-common">1. 下载 grpc-common</h3>
+
+<p>该项目是grpc的使用示例程序以及帮助文档</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git clone https://github.com/grpc/grpc-common.git
+</code></pre>
+</div>
+
+<h3 id="rpc">2. 生成rpc接口代码</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd grpc-common/cpp/helloworld/
+$ make helloworld.pb.cc
+</code></pre>
+</div>
+
+<p>其实生成接口代码执行的是这条命令:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ protoc -I ../../protos --cpp_out=. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ../../protos/helloworld.proto
+</code></pre>
+</div>
+
+<h3 id="section-4">3. 代码示例</h3>
+
+<p><code class="highlighter-rouge">greeter_server.cc</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;string&gt;
+#include &lt;grpc/grpc.h&gt;
+#include &lt;grpc++/server.h&gt;
+#include &lt;grpc++/server_builder.h&gt;
+#include &lt;grpc++/server_context.h&gt;
+#include &lt;grpc++/server_credentials.h&gt;
+#include &lt;grpc++/status.h&gt;
+#include "helloworld.pb.h"
+
+using grpc::Server;
+using grpc::ServerBuilder;
+using grpc::ServerContext;
+using grpc::Status;
+using helloworld::HelloRequest;
+using helloworld::HelloReply;
+using helloworld::Greeter;
+
+class GreeterServiceImpl final : public Greeter::Service {
+    Status SayHello(ServerContext* context, const HelloRequest* request, HelloReply* reply) override {
+        std::string prefix("Hello ");
+        reply-&gt;set_message(prefix + request-&gt;name());
+        return Status::OK;
+    }
+};
+
+void RunServer() {
+    std::string server_address("0.0.0.0:50051");
+    GreeterServiceImpl service;
+    ServerBuilder builder;
+    builder.AddListeningPort(server_address,
+    grpc::InsecureServerCredentials());
+    builder.RegisterService(&amp;service);
+    std::unique_ptr&lt;Server&gt; server(builder.BuildAndStart());
+    std::cout &lt;&lt; "Server listening on " &lt;&lt; server_address &lt;&lt; std::endl;
+    server-&gt;Wait();
+}
+
+int main(int argc, char** argv) {
+    grpc_init();
+    RunServer();
+    grpc_shutdown();
+    return 0;
+}
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">greeter_client.cc</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;string&gt;
+#include &lt;grpc/grpc.h&gt;
+#include &lt;grpc++/channel_arguments.h&gt;
+#include &lt;grpc++/channel_interface.h&gt;
+#include &lt;grpc++/client_context.h&gt;
+#include &lt;grpc++/create_channel.h&gt;
+#include &lt;grpc++/credentials.h&gt;
+#include &lt;grpc++/status.h&gt;
+#include "helloworld.pb.h"
+
+using grpc::ChannelArguments;
+using grpc::ChannelInterface;
+using grpc::ClientContext;
+using grpc::Status;
+using helloworld::HelloRequest;
+using helloworld::HelloReply;
+using helloworld::Greeter;
+
+class GreeterClient {
+  public:
+    GreeterClient(std::shared_ptr&lt;ChannelInterface&gt; channel) : stub_(Greeter::NewStub(channel)) {}
+
+    std::string SayHello(const std::string&amp; user) {
+        HelloRequest request;
+        request.set_name(user);
+        HelloReply reply;
+        ClientContext context;
+        Status status = stub_-&gt;SayHello(&amp;context, request, &amp;reply);
+        if (status.IsOk()) {
+            return reply.message();
+        } else {
+            return "Rpc failed";
+        }
+    }
+    void Shutdown() { stub_.reset(); }
+  private:
+    std::unique_ptr&lt;Greeter::Stub&gt; stub_;
+};
+
+int main(int argc, char** argv) {
+    grpc_init();
+    GreeterClient greeter(
+    grpc::CreateChannel("localhost:50051", grpc::InsecureCredentials(),
+        ChannelArguments()));
+    std::string user("world");
+    std::string reply = greeter.SayHello(user);
+    std::cout &lt;&lt; "Greeter received: " &lt;&lt; reply &lt;&lt; std::endl;
+    greeter.Shutdown();
+    grpc_shutdown();
+}
+</code></pre>
+</div>
+
+<h3 id="hello">4. 编译hello程序</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ make
+</code></pre>
+</div>
+
+<h3 id="section-5">5. 运行</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ ./greeter_server
+$ ./greeter_client
+</code></pre>
+</div>
+
+<p>输出结果:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Hello world
+</code></pre>
+</div>
+
+<h2 id="section-6">最后</h2>
+<p>本文记录了一下安装编译过程，并简单体验了一下c++版本的hello程序，接下来陆续会对grpc的源码进行分析。</p>
+
+
+<p class="post-meta">2015-03-25 by tangmi</p>
+<br>
+
+<!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="/blog/grpc-experience" data-title="gRPC体验" data-url="http://www.tangmi.me/blog/grpc-experience"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"tangmi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+
+<p class="post-meta">
+此文位于<a href="http://www.tangmi.me/blog/grpc-experience">http://www.tangmi.me/blog/grpc-experience</a>  by tangmi <br>
+转载请以超链接形式标明文章原始出处和作者信息及版权声明.
+</p>
+
+      </article>
+
+    </div>
+    <div class="site-side">
+  <div class="tag-list">
+    <h4>标签</h4>
+      <ul class="tag-box inline">
+      
+        <li> <a href="/tags.html?tag=关于"> 关于<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=文生"> 文生<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=gRPC"> gRPC<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=服务器"> 服务器<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=读书"> 读书<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=数学"> 数学<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=机器学习"> 机器学习<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=枚举"> 枚举<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=二叉树"> 二叉树<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=递归"> 递归<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=二分查找"> 二分查找<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=矩阵"> 矩阵<sup>1</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=位运算"> 位运算<sup>2</sup></a> </li>
+      
+        <li> <a href="/tags.html?tag=链表"> 链表<sup>2</sup></a> </li>
+      
+      </ul>
+  </div>
+
+  <br/>
+  <div class="arc-list">
+    <h4>主题</h4>
+     
+       <li> <a href="/tags.html?tag=关于我">关于我<sup>1</sup></a> </li>
+     
+       <li> <a href="/tags.html?tag=心情">心情<sup>1</sup></a> </li>
+     
+       <li> <a href="/tags.html?tag=服务器">服务器<sup>1</sup></a> </li>
+     
+       <li> <a href="/tags.html?tag=读书">读书<sup>1</sup></a> </li>
+     
+       <li> <a href="/tags.html?tag=LintCode">LintCode<sup>7</sup></a> </li>
+     
+  </div>
+
+  <br><br>
+  <div class="description-item"><a href="https://github.com/tangmi360">Github主页</a></div>
+  <div class="description-item"><a href="http://www.douban.com/people/tttangmi/">豆瓣主页</a></div>
+  <div class="description-item"><a href="mailto:&#116;&#097;&#110;&#103;&#109;&#105;&#051;&#054;&#048;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#116;&#097;&#110;&#103;&#109;&#105;&#051;&#054;&#048;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a></div>
+  <br><br>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- tangmi的笔记本 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6038538215362133"
+     data-ad-slot="6670041806"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>  
+</div>
+
+  </div>
+</div>
+
+      <footer class="site-footer">
+  <p>
+    Powered by <a href="http://jekyllrb.com/" target="_blank">Jeklly</a> | Hosted by <a href="https://github.com/" target="_balnk">Github</a>
+  </p>
+</footer>
+
+
+    </div>
+
+    <script>
+      if(window.screen.width < 500){
+        var page = document.getElementsByClassName("site-page")[0];
+        page.style.margin = "5px 5px 15px 5px";
+        page.style.width = "auto";
+        document.getElementsByClassName("arc-list")[0].style.display = "none";
+        document.getElementsByClassName("tag-list")[0].style.display = "none";
+        document.getElementsByClassName("ads")[1].style.display = "none";
+      }
+
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-61062411-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+
+</html>
