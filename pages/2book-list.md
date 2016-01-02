@@ -2,7 +2,7 @@
 layout: page
 title: Books
 permalink: /books/
-icon: glyphicon-heart
+icon: glyphicon-book
 ---
 
 ## 数学基础
