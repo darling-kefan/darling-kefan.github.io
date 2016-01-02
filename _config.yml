@@ -11,7 +11,8 @@ description: tangmi的笔记本
 # url: "http://yourdomain.com" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
 github_username:  tangmi360
-permalink: /:year/:month/:day/:title/
+#permalink: /:year/:month/:day/:title/
+permalink: /:title/
 
 # Build settings
 markdown: kramdown
