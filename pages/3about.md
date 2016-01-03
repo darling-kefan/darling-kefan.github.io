@@ -7,7 +7,7 @@ icon: glyphicon-heart
 
 ### 关于我
 
-> 码农、服务器、搜索、Spider、数据、机器学习研究
+> 飘在帝都的码农
 
 ---
 
