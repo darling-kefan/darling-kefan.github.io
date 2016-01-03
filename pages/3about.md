@@ -1,6 +1,5 @@
 ---
 layout: page
-id: /about
 title: About
 permalink: /about/
 icon: glyphicon-heart
