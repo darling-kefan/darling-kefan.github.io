@@ -5,41 +5,17 @@ permalink: /books/
 icon: glyphicon-book
 ---
 
-## 数学基础
+## 在读
 
-### 微积分
+#### [普林斯顿微积分读本](http://book.douban.com/subject/4926707/){:target="_blank"}  
 
-#### 2. [公开课--单变量微积分](http://study.163.com/plan/planIntroduction.htm?id=1200133){:target="_blank"}  
+#### [Machine Learning](https://www.coursera.org/course/ml){:target="_blank"}
 
-#### 3. [公开课--单变量微积分习题课](http://study.163.com/plan/planIntroduction.htm?id=1200153){:target="_blank"}  
-
-#### 4. [多变量微积分](http://study.163.com/plan/planIntroduction.htm?id=1200069){:target="_blank"}
-
-### 概率论
-
-#### 1. [概率论与数理统计](http://book.douban.com/subject/2201479/){:target="_blank"}
-
-### 线性代数
-
-#### 1. [线性代数](http://book.douban.com/subject/2016789/){:target="_blank"}
-
-### 其他
-
-#### 1. [程序员的数学](http://book.douban.com/subject/19949020/){:target="_blank"}
-
-#### 2. [数学之美](http://book.douban.com/subject/10750155/){:target="_blank"}
-
-#### 3. [什么是数学：对思想和方法的基本研究](http://book.douban.com/subject/10455982/){:target="_blank"}
-
-#### 4. [微积分和数学分析引论](http://book.douban.com/subject/1281343/){:target="_blank"}
+#### [C++ Cookbook 中文版](http://book.douban.com/subject/2278610/){:target="_blank"}
 
 
-## 机器学习
+## 想读
 
-#### 1. [公开课--Ng的机器学习](https://www.coursera.org/course/ml){:target="_blank"}
+#### [信息检索导论](http://book.douban.com/subject/5252170/){:target="_blank"}
 
-#### 2. [机器学习实战](https://book.douban.com/subject/24703171/){:target="_blank"}
-
-#### 3. [公开课--斯坦福机器学习](http://study.163.com/plan/planIntroduction/1200146.htm){:target="_blank"}
-
-
+#### [公开课--斯坦福机器学习](http://study.163.com/plan/planIntroduction/1200146.htm){:target="_blank"}
