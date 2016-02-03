@@ -7,9 +7,7 @@ icon: glyphicon-book
 
 ### 在读
 * [普林斯顿微积分读本](http://book.douban.com/subject/4926707/){:target="_blank"}  
-
 * [Machine Learning](https://www.coursera.org/course/ml){:target="_blank"}
-
 * [C++ Cookbook 中文版](http://book.douban.com/subject/2278610/){:target="_blank"}
 
 ### 想读
