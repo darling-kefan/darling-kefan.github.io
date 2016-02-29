@@ -1,3 +1,5 @@
 _site
 .sass-cache
 _posts.bak
+Gemfile
+Gemfile.lock
