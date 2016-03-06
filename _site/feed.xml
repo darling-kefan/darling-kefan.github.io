@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Darling-kefan&#39;s Blog</title>
+    <description>Darling-kefan&#39;s Blog</description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 06 Mar 2016 19:49:15 +0800</pubDate>
+    <lastBuildDate>Sun, 06 Mar 2016 19:49:15 +0800</lastBuildDate>
+    <generator>Jekyll v3.0.3</generator>
+    
+      <item>
+        <title>Win10安装Jekyll</title>
+        <description>&lt;h3 id=&quot;section&quot;&gt;一、安装前准备&lt;/h3&gt;
+
+&lt;h4 id=&quot;ruby&quot;&gt;1、安装Ruby&lt;/h4&gt;
+
+&lt;p&gt;在&lt;a href=&quot;http://rubyinstaller.org/downloads/&quot;&gt;Ruby Installers&lt;/a&gt;下载&lt;a href=&quot;http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.2.4-x64.exe&quot;&gt;Ruby 2.2.4 (x86)&lt;/a&gt;。新版Ruby自带Gem，Ruby Gem相当于Linux的yum，方便我们进行软件包的安装和管理。&lt;/p&gt;
+
+&lt;p&gt;下载完成后，按照安装向导安装。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/ruby-install.png&quot; width=&quot;300&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;安装目录为D:\Ruby22-x64，其中ruby安装目录不能带有空格或中文。&lt;/li&gt;
+  &lt;li&gt;Ruby卸载后重新安装，需要重启电脑Ruby命令方可生效。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;devkid&quot;&gt;2、安装Devkid&lt;/h4&gt;
+
+&lt;p&gt;这个Devkid需要和Ruby的版本对应起来，同样可以在&lt;a href=&quot;http://rubyinstaller.org/downloads/&quot;&gt;Ruby Installers&lt;/a&gt;下载。&lt;/p&gt;
+
+&lt;p&gt;下载完后，解压到一个目录，例如我的D:\Downloads\Ruby22-x64\DevKit。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：解压目录不能带有空格或中文，和Ruby安装目录一样。&lt;/p&gt;
+
+&lt;p&gt;在cmd下输入命令：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ D:  
+$ cd Downloads/Ruby22-x64/DevKit  
+$ ruby dk.rb init
+$ ruby dk.rb install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;注意：安装目录为D:\Downloads\Ruby22-x64\DevKit，其中ruby安装目录不能带有空格或中文。&lt;/p&gt;
+
+&lt;p&gt;至此，windows下的安装准备工作算是完成了。&lt;/p&gt;
+
+&lt;h3 id=&quot;jekyll&quot;&gt;二、Jekyll安装&lt;/h3&gt;
+
+&lt;h4 id=&quot;bundler&quot;&gt;1、安装bundler&lt;/h4&gt;
+
+&lt;p&gt;同样，在windows下面也需要安装bundler管理器，输入命令：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gem install bundler
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;此时安装顺利的话，那就恭喜啦！但是我遇到了问题。。。首先gem install bundler默认的源是官方的源，身处天朝的我们都懂吧。所以我们还是将Ruby的源换成淘宝的镜像比较好。使用命令：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gem sources --add https://ruby.taobao.org/  
+$ gem sources list  
+$ gem sources --remove https://rubygems.org/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;然后再次 命令：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gem install bundler
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;jekyll-1&quot;&gt;2、安装Jekyll&lt;/h4&gt;
+
+&lt;p&gt;在GitHub配置自己的站点，参考 &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;。clone远程代码至本地，如：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git clone https://github.com/darling-kefan/darling-kefan.github.io.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在darling-kefan.github.io（GitHub Pages根目录）创建一个Gemfile文件，内容如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ source &#39;https://ruby.taobao.org&#39;  
+$ gem &#39;github-pages&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;保存文件后，在终端输入命令：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ E:  
+$ cd Blog/darling-kefan.github.io  
+$ bundle install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这时系统会安装一堆的依赖包，这样我们的Jekyll就安装好了，可以看到文件夹下多了一个Gemfile.lock文件。&lt;/p&gt;
+
+&lt;h3 id=&quot;jekyll-2&quot;&gt;三、Jekyll的运行及代码推送&lt;/h3&gt;
+
+&lt;p&gt;安装完Jekyll以后，在终端输入：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bundle exec jekyll serve
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;就可以在本地将Jekyll跑起来了，这时候你可以通过&lt;a href=&quot;http://127.0.0.1:4000/&quot;&gt;http://127.0.0.1:4000/&lt;/a&gt;来浏览你的GitHub Pages了。&lt;/p&gt;
+
+&lt;p&gt;自己预览没有问题了，就可以提交到服务端了，在Git Bash输入：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git add *
+$ git commit -m &#39;you commit message&#39;
+$ git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;四、错误解决&lt;/h3&gt;
+
+&lt;h4 id=&quot;bad-interpreter-permission-denied&quot;&gt;1、bad interpreter: Permission denied&lt;/h4&gt;
+
+&lt;p&gt;出现下面现象，是安装目录的问题，一般我们不要安装在有空格或者中文名称的目录下； 重新安装ruby&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ jekyll
+bash: /d/Program Files/Ruby22-x64/bin/jekyll: &quot;D:/Program: bad interpreter: Permission denied
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;related-posts&quot;&gt;五、Related Posts&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.github.com/articles/setting-up-your-pages-site-locally-with-jekyll/&quot;&gt;Setting up your Pages site locally with Jekyll&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://unclechen.github.io/2015/01/31/%E4%BD%BF%E7%94%A8Jekyll%E6%B8%B2%E6%9F%93GitHub%20Pages%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/&quot;&gt;使用Jekyll渲染GitHub Pages个人博客&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jingyan.baidu.com/article/ce09321b76f1012bff858f8a.html&quot;&gt;如何快速使用Jekyll生成静态页面并访问&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html&quot;&gt;Running Jekyll on Windows&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sun, 06 Mar 2016 00:00:00 +0800</pubDate>
+        <link>/2016/03/06/Win10%E5%AE%89%E8%A3%85Jekyll/</link>
+        <guid isPermaLink="true">/2016/03/06/Win10%E5%AE%89%E8%A3%85Jekyll/</guid>
+        
+        <category>Jeykyll,Github</category>
+        
+        <category>Pages</category>
+        
+        
+        <category>Jekyll</category>
+        
+      </item>
+    
+  </channel>
+</rss>
