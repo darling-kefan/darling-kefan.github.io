@@ -3,6 +3,7 @@ layout: page
 title: About
 permalink: /about/
 icon: glyphicon-heart
+comments: false
 ---
 
 ### 关于我
@@ -13,11 +14,10 @@ icon: glyphicon-heart
 
 ### 联系我
 
-* xxxx
+* QQ: 2498038528
 
 ---
 
 #### 友情链接
 
 [HyG](http://gaohaoyang.github.io/)
-
